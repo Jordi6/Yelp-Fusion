@@ -14,7 +14,7 @@ $(function() {
 		$.ajax({
 			url: "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/"+id+"/reviews",
 			headers: {
-				Authorization: ""
+				Authorization: "Bearer JcLsY02vCqvKgLUSj0-TzeGwz6QOUVrLFR4YQnZsGPWXNGvR3zuaXliSh0GL-_xjPJau11k8rIQei0-lmCzqv1Ze9oRkYnzP0YDr5bmDd1zwBTLiDMjPksDhgS5oX3Yx"
 			},
 			method: "GET",
 			dataType: "json",
@@ -35,7 +35,7 @@ $(function() {
 		$.ajax({
 			url: "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/"+id,
 			headers: {
-				Authorization: ""
+				Authorization: "Bearer JcLsY02vCqvKgLUSj0-TzeGwz6QOUVrLFR4YQnZsGPWXNGvR3zuaXliSh0GL-_xjPJau11k8rIQei0-lmCzqv1Ze9oRkYnzP0YDr5bmDd1zwBTLiDMjPksDhgS5oX3Yx"
 			},
 			method: "GET",
 			dataType: "json",
@@ -62,7 +62,7 @@ $(function() {
 			$.ajax({
 				url: "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search",
 				headers: {
-					Authorization: ""
+					Authorization: "Bearer JcLsY02vCqvKgLUSj0-TzeGwz6QOUVrLFR4YQnZsGPWXNGvR3zuaXliSh0GL-_xjPJau11k8rIQei0-lmCzqv1Ze9oRkYnzP0YDr5bmDd1zwBTLiDMjPksDhgS5oX3Yx"
 				},
 				method: "GET",
 				dataType: "json",
@@ -86,7 +86,7 @@ $(function() {
 	
 	function buildBusinesses(data) {
 
-
+		$(".card").remove();		
 		for (var i = 0; i < data.businesses.length; i++) {
 			
 			var $bus = data.businesses[i];

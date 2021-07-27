@@ -8,6 +8,10 @@ body {
 	margin-bottom: 1.5em;
 }
 
+#business-card {
+	display: none;
+}
+
 .container {
 	display: flex;
 }
@@ -28,7 +32,7 @@ body {
 	display: inline-block;
 }
 
-
+/* some change */
 
 
 
