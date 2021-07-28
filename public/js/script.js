@@ -1,13 +1,39 @@
 $(function() {
+	var offset = 0;
+	var limit = 25;
+	var page;
 
 	$("#search").keypress(keywordSearch);
+	$("#pages").on("click", "a", changePage);
 	
-	//mDl8AIUncJLzYsH0nPJwTA
-	//jTu8alO6FZH6ssi7GQkUNA
-	//getBusiness("jTu8alO6FZH6ssi7GQkUNA");
-	//getBusiness("mDl8AIUncJLzYsH0nPJwTA");
 	
-	//getBusinessReviews("mDl8AIUncJLzYsH0nPJwTA");
+	function changePage() {
+		offset = parseInt($(this).attr("href"));
+		console.log(offset);
+		
+		var term = $("#search").val();
+		getBusinesses(term, offset, limit);
+		return false;
+	}
+	
+	function buildPages(total) {
+		var numPages = 0;
+		
+		if (total % limit == 0) {
+			numPages = Math.floor(total / limit);
+		} else {
+			numPages = Math.floor(total / limit) + 1;
+		}
+		
+		$("#pages").empty();
+		for (var i = 1; i <= numPages; i++) {
+			var $a = $("<a/>");
+			$a.text(i);
+			$a.attr("href", (i - 1) * limit);
+			$("#pages").append($a);
+		}
+		
+	}
 	
 	function getBusinessReviews(id) {
 		
@@ -51,13 +77,13 @@ $(function() {
 	
 	function keywordSearch(event) {
 		if (event.which == 13) {
-			
+			offset = 0;
 			var keyword = $(this).val();			
-			getBusinesses(keyword);
+			getBusinesses(keyword, offset, limit);
 		}
 	}
 
-	function getBusinesses(keyword) {
+	function getBusinesses(keyword, offset, limit) {
 			
 			$.ajax({
 				url: "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search",
@@ -68,12 +94,16 @@ $(function() {
 				dataType: "json",
 				data: {
 					term: keyword,
+					offset: offset,
+					limit: limit,
+					
 					location: "Omaha"
 				}, 
 				error: ajaxError,
 				success: function(data) {
 					console.log(data);
 					buildBusinesses(data);
+					buildPages(data.total);
 				}
 			});
 	}
