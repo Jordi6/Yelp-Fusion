@@ -93,13 +93,22 @@ $(function() {
 			var $business = $("#business-card").clone();
 			$business.removeAttr("id");
 			$business.addClass("card");
-			$business.find(".business-image img").attr("src", $bus.image_url);
 			$business.find(".business-title").append($bus.name);
 			$business.find(".business-rating").append($bus.rating);
 			$business.find(".review-count").append($bus.review_count);
-			// finish up displaying the location of business
-			//$business.find(".business-address").append($bus.location.display_address);
-			// add phone number;
+			
+			var numStars = Math.floor($bus.rating);
+			for (var ri = 1; ri <= numStars; ri++) {
+				$business.find("img:nth-child(" + ri + ")").attr(
+				"src", "images/star-filled.png");
+			}
+			var numStarsString = "" + $bus.rating;
+			if (numStarsString.endsWith(".5")) {
+				$business.find("img:nth-child(" + (numStars + 1) + ")").attr(
+				"src", "images/star-half.png");
+			}
+			 
+			$business.find(".business-image img").attr("src", $bus.image_url);
 			$("#businesses").append($business);
 		}
 		
