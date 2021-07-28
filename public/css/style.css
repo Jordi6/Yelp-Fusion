@@ -36,5 +36,9 @@ body {
 	height: 1.25em;
 }
 
+#pages > a {
+	padding-right: .5em;
+}
+
 
 
