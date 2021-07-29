@@ -56,6 +56,7 @@ $(function() {
 		});
 	}
 	
+	// get single info on a single Business 
 	function getBusiness(id) {
 		
 		$.ajax({
