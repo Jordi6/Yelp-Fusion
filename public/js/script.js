@@ -5,7 +5,22 @@ $(function() {
 
 	$("#search").keypress(keywordSearch);
 	$("#pages").on("click", "a", changePage);
+	$("#next-btn").click(nextPage);
+	$("#prev-btn").click(prevPage);
 	
+	function nextPage() {
+		//offset = offset + limit;
+		offset += limit;
+		var term = $("#search").val();
+		getBusinesses(term, offset, limit);
+	}
+	
+	function prevPage() {
+		//offset = offset - limit;
+		offset -= limit;
+		var term = $("#search").val();
+		getBusinesses(term, offset, limit);
+	}
 	
 	function changePage() {
 		offset = parseInt($(this).attr("href"));
@@ -103,6 +118,19 @@ $(function() {
 				error: ajaxError,
 				success: function(data) {
 					console.log(data);
+					
+					if (offset + limit < data.total) {
+						$("#next-btn").addClass("show");
+					} else {
+						$("#next-btn").removeClass("show");
+					}
+					
+					if (offset == 0) {
+						$("#prev-btn").removeClass("show");
+					} else {
+						$("#prev-btn").addClass("show");
+					}
+					
 					buildBusinesses(data);
 					buildPages(data.total);
 				}
